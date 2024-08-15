@@ -52,10 +52,11 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/datoria.png',
+              'assets/images/toolivo_icon.png',
               width: 147,
               height: 112,
             ),
+            const SizedBox(height: 5),
             const CircularProgressIndicator()
           ],
         ),

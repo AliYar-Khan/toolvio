@@ -8,7 +8,7 @@
 PRODUCT_NAME = toolvio
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.datoria.toolvioapp.toolvio
+PRODUCT_BUNDLE_IDENTIFIER = com.datoria.toolvioapp
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.datoria.toolvioapp. All rights reserved.

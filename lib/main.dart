@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
     return Consumer<LanguageViewModel>(
       builder: (context, provider, child) {
         return MaterialApp(
-          locale: Locale(locale),
+          locale: provider.appLocale ?? Locale(locale),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

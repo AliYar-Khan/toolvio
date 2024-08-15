@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/datoria.png',
+                    'assets/images/toolivo_icon.png',
                     width: 147,
                     height: 112,
                   ),

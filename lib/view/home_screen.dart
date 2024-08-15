@@ -43,27 +43,30 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFEDF9FF),
       appBar: AppBar(
         actions: [
-          Consumer<LanguageViewModel>(builder: (context, provider, child) {
-            return PopupMenuButton(
-              onSelected: (Language item) {
-                if (Language.english.name == item.name) {
-                  provider.changeLocale("en");
-                } else {
-                  provider.changeLocale("de");
-                }
-              },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<Language>>[
-                const PopupMenuItem(
-                  value: Language.english,
-                  child: Text("English"),
-                ),
-                const PopupMenuItem(
-                  value: Language.german,
-                  child: Text("German"),
-                ),
-              ],
-            );
-          }),
+          Consumer<LanguageViewModel>(
+            builder: (context, provider, child) {
+              return PopupMenuButton(
+                onSelected: (Language item) {
+                  if (Language.english.name == item.name) {
+                    provider.changeLocale("en");
+                  } else {
+                    provider.changeLocale("de");
+                  }
+                },
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuEntry<Language>>[
+                  const PopupMenuItem(
+                    value: Language.english,
+                    child: Text("English"),
+                  ),
+                  const PopupMenuItem(
+                    value: Language.german,
+                    child: Text("German"),
+                  ),
+                ],
+              );
+            },
+          ),
         ],
       ),
       body: SafeArea(
