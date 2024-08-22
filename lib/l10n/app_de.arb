@@ -22,6 +22,7 @@
   "assignee": "zuständig",
   "description": "Beschreibung",
   "addNewTask": "neue Aufgabe hinzufügen",
+  "editTask": "Aufgabe bearbeiten",
   "hello": "Hallo",
   "revenue": "Umsatz",
   "inTotal": "gesamt",

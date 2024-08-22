@@ -22,6 +22,7 @@
   "assignee": "Assignee",
   "description": "Description",
   "addNewTask": "Add New Task",
+  "editTask": "Edit Task",
   "hello": "Hello",
   "revenue": "Revenue",
   "inTotal": "In total",

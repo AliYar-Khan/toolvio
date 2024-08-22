@@ -170,7 +170,9 @@ class _TaskListState extends State<TaskList> {
                 ),
               ),
               Text(
-                viewModel.tasks[index].location,
+                viewModel.tasks[index].location.length > 15
+                    ? '${viewModel.tasks[index].location.substring(0, 10)}...'
+                    : viewModel.tasks[index].location,
                 style: GoogleFonts.spaceGrotesk(
                   textStyle: const TextStyle(
                     fontSize: 15,
@@ -185,14 +187,42 @@ class _TaskListState extends State<TaskList> {
           onExpansionChanged: (bool expanded) {
             viewModel.isExpanded(index, expanded);
           },
-          trailing: viewModel.customTileExpanded.isNotEmpty
-              ? viewModel.customTileExpanded[index]
-                  ? const Image(
-                      image: AssetImage("assets/icons/right_arrow_icon.png"))
+          trailing: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              viewModel.customTileExpanded.isNotEmpty
+                  ? viewModel.customTileExpanded[index]
+                      ? const Image(
+                          image:
+                              AssetImage("assets/icons/right_arrow_icon.png"),
+                        )
+                      : const Image(
+                          image: AssetImage("assets/icons/arrow_down_icon.png"),
+                        )
                   : const Image(
-                      image: AssetImage("assets/icons/arrow_down_icon.png"))
-              : const Image(
-                  image: AssetImage("assets/icons/arrow_down_icon.png")),
+                      image: AssetImage("assets/icons/arrow_down_icon.png"),
+                    ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.task,
+                    arguments: viewModel.tasks[index],
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Image(
+                    image: AssetImage("assets/icons/edit.png"),
+                    width: 20,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
           children: <Widget>[
             Container(
               width: double.infinity,

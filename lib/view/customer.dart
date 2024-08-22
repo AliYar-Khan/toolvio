@@ -46,6 +46,16 @@ class _CustomerState extends State<Customer> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    companyNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     CustomerViewModel customerViewModel =

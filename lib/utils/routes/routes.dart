@@ -10,6 +10,7 @@ import 'package:toolivo/view/print_invoice_selected_tasks.dart';
 import 'package:toolivo/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:toolivo/view/home_screen.dart';
+import 'package:toolivo/view/task.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -39,6 +40,12 @@ class Routes {
       case RoutesName.customer:
         return MaterialPageRoute(
           builder: (BuildContext context) => const Customer(),
+          settings: settings,
+        );
+
+      case RoutesName.task:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => const Task(),
           settings: settings,
         );
 

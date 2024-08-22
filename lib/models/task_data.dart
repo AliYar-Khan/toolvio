@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:appwrite/models.dart';
 import 'package:toolivo/models/material_data.dart';
 
 class TaskData {
+  String? docId;
   String id;
   String title;
   String location;
@@ -14,6 +16,7 @@ class TaskData {
   String description;
   List<MaterialItem> material;
   TaskData({
+    this.docId,
     required this.id,
     required this.title,
     required this.location,
@@ -26,17 +29,18 @@ class TaskData {
     required this.material,
   });
 
-  factory TaskData.fromJson(Map<String, dynamic> json) => TaskData(
-        id: json['id'] as String,
-        title: json['title'] as String,
-        location: json['location'] as String,
-        startTime: json['startTime'] as String,
-        endTime: json['endTime'] as String,
-        duration: json['duration'] as String,
-        customerId: json['customerId'] as String,
-        customerName: json['customerName'] as String,
-        description: json['description'] as String,
-        material: (jsonDecode(json["material"]) as List<dynamic>)
+  factory TaskData.fromJson(Document d) => TaskData(
+        docId: d.$id,
+        id: d.data['id'] as String,
+        title: d.data['title'] as String,
+        location: d.data['location'] as String,
+        startTime: d.data['startTime'] as String,
+        endTime: d.data['endTime'] as String,
+        duration: d.data['duration'] as String,
+        customerId: d.data['customerId'] as String,
+        customerName: d.data['customerName'] as String,
+        description: d.data['description'] as String,
+        material: (jsonDecode(d.data["material"]) as List<dynamic>)
             .map((e) => MaterialItem.fromJson(e))
             .toList(),
       );

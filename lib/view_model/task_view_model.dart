@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:toolivo/models/material_data.dart';
@@ -135,20 +137,7 @@ class TaskViewModel extends ChangeNotifier {
         customerName: customerName,
         description: description,
         material: material);
-    // List<String> materialListString =
-    //     material.map((e) => (e.toJson()).toString()).toList();
-    // Map<String, dynamic> data = {
-    //   "id": ID.unique(),
-    //   "title": title,
-    //   "location": location,
-    //   "startTime": startTime,
-    //   "endTime": endTime,
-    //   "duration": duration,
-    //   "customerId": customerId,
-    //   "customerName": customerName,
-    //   "description": description,
-    //   "material": materialListString,
-    // };
+
     Map<String, dynamic> data = taskData.toJson();
     data["accountId"] = Provider.of<LoginViewModel>(context, listen: false)
         .user
@@ -159,6 +148,45 @@ class TaskViewModel extends ChangeNotifier {
     endTime = '';
     duration = '';
     material.clear();
+    loading = false;
+    notifyListeners();
+  }
+
+  Future<void> editTask(
+      String docId,
+      String title,
+      String location,
+      String plannedStarttime,
+      String plannedEndtime,
+      String duration,
+      String customerId,
+      String customerName,
+      String description,
+      List<MaterialItem> materials,
+      BuildContext context) async {
+    loading = true;
+    notifyListeners();
+    Map<String, dynamic> data = {
+      "title": title,
+      "location": location,
+      "startTime": plannedStarttime,
+      "endTime": plannedEndtime,
+      "duration": duration,
+      "customerId": customerId,
+      "customerName": customerName,
+      "description": description,
+      "material": jsonEncode(material),
+    };
+    data["accountId"] = Provider.of<LoginViewModel>(context, listen: false)
+        .user
+        ?.$id
+        .toString();
+    await repository.database.updateDocument(
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.taskCollectionID,
+      documentId: docId,
+      data: data,
+    );
     loading = false;
     notifyListeners();
   }
@@ -179,7 +207,7 @@ class TaskViewModel extends ChangeNotifier {
         if (kDebugMode) {
           print("e.data --> ${e.data}");
         }
-        return TaskData.fromJson(e.data);
+        return TaskData.fromJson(e);
       }).toList();
       // ignore: unused_local_variable
       for (var element in tasks) {
