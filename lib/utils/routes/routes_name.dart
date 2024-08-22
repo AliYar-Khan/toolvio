@@ -6,6 +6,7 @@ class RoutesName {
   static const tasklist = 'ListTask_screen';
   static const addcustomer = 'AddCustomer_screen';
   static const customerlist = 'ListCustomer_screen';
+  static const customer = 'Customer_screen';
   static const createInvoice = 'CreateInvoice_screen';
   static const printInvoice = 'PrintInvoice_screen';
 }

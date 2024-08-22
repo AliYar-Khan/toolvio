@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:toolvio/repo/appwrite_repo.dart';
+import 'package:toolivo/repo/appwrite_repo.dart';
 import 'package:flutter/foundation.dart';
 
 enum AuthState { uninitialized, initialized, unauthenticated, authenticated }

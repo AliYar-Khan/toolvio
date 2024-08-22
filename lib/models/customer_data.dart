@@ -1,5 +1,8 @@
+import 'package:appwrite/models.dart';
+
 class CustomerData {
   String id;
+  String? docId;
   String name;
   String companyName;
   String phone;
@@ -8,6 +11,7 @@ class CustomerData {
 
   CustomerData({
     required this.id,
+    this.docId,
     required this.name,
     required this.companyName,
     required this.phone,
@@ -15,13 +19,14 @@ class CustomerData {
     required this.address,
   });
 
-  factory CustomerData.fromJson(Map<String, dynamic> json) => CustomerData(
-        id: json['id'] as String,
-        name: json['name'] as String,
-        companyName: json['companyName'] as String,
-        phone: json['phone'] as String,
-        email: json['email'] as String,
-        address: json['address'] as String,
+  factory CustomerData.fromJson(Document d) => CustomerData(
+        id: d.data['id'] as String,
+        docId: d.$id,
+        name: d.data['name'] as String,
+        companyName: d.data['companyName'] as String,
+        phone: d.data['phone'] as String,
+        email: d.data['email'] as String,
+        address: d.data['address'] as String,
       );
 
   /// Connect the generated [_$CustomerDataToJson] function to the `toJson` method.

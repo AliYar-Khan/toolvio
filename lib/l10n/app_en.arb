@@ -13,6 +13,7 @@
   "address": "Address",
   "save": "Save",
   "addNewCustomer": "Add New Customer",
+  "editCustomer": "Edit Customer",
   "title": "Title",
   "location": "Location",
   "plannedStarttime": "Planned Start time",

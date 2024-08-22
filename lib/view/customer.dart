@@ -1,24 +1,49 @@
-import 'package:toolivo/res/widgets/button_primary.dart';
-import 'package:toolivo/res/widgets/contained_text_field.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:toolivo/view_model/customer_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:toolivo/models/customer_data.dart';
+import 'package:toolivo/res/widgets/button_primary.dart';
+import 'package:toolivo/res/widgets/contained_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:toolivo/view_model/customer_view_model.dart';
 
-class AddCustomer extends StatefulWidget {
-  const AddCustomer({super.key});
+class Customer extends StatefulWidget {
+  const Customer({super.key});
 
   @override
-  State<AddCustomer> createState() => _AddCustomerState();
+  State<Customer> createState() => _CustomerState();
 }
 
-class _AddCustomerState extends State<AddCustomer> {
+class _CustomerState extends State<Customer> {
+  String docId = '';
   TextEditingController nameController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final arguments =
+          ModalRoute.of(context)?.settings.arguments as CustomerData;
+      if (kDebugMode) {
+        print(arguments.name);
+      }
+      setState(() {
+        docId = arguments.docId!;
+        nameController.text = arguments.name;
+        companyNameController.text = arguments.companyName;
+        emailController.text = arguments.email;
+        phoneController.text = arguments.phone;
+        addressController.text = arguments.address;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +127,11 @@ class _AddCustomerState extends State<AddCustomer> {
                       padding: const EdgeInsets.only(top: 30),
                       child: ButtonPrimary(
                         screenWidth: widthScreen,
-                        loading: customerViewModel.loading,
+                        loading: false,
                         onTap: () async {
                           await customerViewModel
-                              .addCustomer(
+                              .editCustomer(
+                                  docId,
                                   nameController.text,
                                   companyNameController.text,
                                   emailController.text,
@@ -143,7 +169,7 @@ class _AddCustomerState extends State<AddCustomer> {
                       children: [
                         Text(
                           AppLocalizations.of(context)!
-                              .addNewCustomer, //"Add New Customer",
+                              .editCustomer, //"Add New Customer",
                           style: GoogleFonts.spaceGrotesk(
                             textStyle: const TextStyle(
                               color: Color(0xFF000000),

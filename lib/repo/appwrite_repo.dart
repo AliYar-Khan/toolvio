@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:toolvio/res/constants.dart';
+import 'package:toolivo/res/constants.dart';
 import 'package:flutter/foundation.dart';
 
 class AppwriteRepository {

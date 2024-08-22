@@ -1,9 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:toolvio/models/customer_data.dart';
-import 'package:toolvio/repo/appwrite_repo.dart';
-import 'package:toolvio/res/constants.dart';
-import 'package:toolvio/view_model/login_view_model.dart';
+import 'package:toolivo/models/customer_data.dart';
+import 'package:toolivo/repo/appwrite_repo.dart';
+import 'package:toolivo/res/constants.dart';
+import 'package:toolivo/view_model/login_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +41,31 @@ class CustomerViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> editCustomer(String docId, String name, String company,
+      String email, String phone, String address, BuildContext context) async {
+    loading = true;
+    notifyListeners();
+    Map<String, dynamic> data = {
+      "name": name,
+      "companyName": company,
+      "email": email,
+      "phone": phone,
+      "address": address
+    };
+    data["accountId"] = Provider.of<LoginViewModel>(context, listen: false)
+        .user
+        ?.$id
+        .toString();
+    await repository.database.updateDocument(
+      databaseId: AppConstants.databaseId,
+      collectionId: AppConstants.customerCollectionID,
+      documentId: docId,
+      data: data,
+    );
+    loading = false;
+    notifyListeners();
+  }
+
   Future<void> getCustomers(BuildContext context) async {
     loading = true;
     notifyListeners();
@@ -53,8 +78,7 @@ class CustomerViewModel extends ChangeNotifier {
           databaseId: AppConstants.databaseId,
           collectionId: AppConstants.customerCollectionID,
           queries: [Query.equal('accountId', userId)]);
-      customers =
-          docs.documents.map((e) => CustomerData.fromJson(e.data)).toList();
+      customers = docs.documents.map((e) => CustomerData.fromJson(e)).toList();
       loading = false;
       notifyListeners();
     } on AppwriteException catch (e) {
@@ -100,7 +124,7 @@ class CustomerViewModel extends ChangeNotifier {
             collectionId: AppConstants.customerCollectionID,
             queries: [Query.equal('accountId', userId)]);
         customers =
-            docs.documents.map((e) => CustomerData.fromJson(e.data)).toList();
+            docs.documents.map((e) => CustomerData.fromJson(e)).toList();
         CustomerData? customer;
 
         customer = customers.firstWhere((element) => element.id == customerId);

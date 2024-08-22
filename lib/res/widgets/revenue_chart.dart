@@ -1,10 +1,10 @@
-import 'package:toolvio/view_model/invoicing_view_model.dart';
+import 'package:toolivo/view_model/invoicing_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:toolvio/models/chart_data.dart';
+import 'package:toolivo/models/chart_data.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:toolvio/res/extensions.dart';
+import 'package:toolivo/res/extensions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RevenueChart extends StatelessWidget {

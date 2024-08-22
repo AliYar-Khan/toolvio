@@ -1,14 +1,15 @@
-import 'package:toolvio/utils/routes/routes_name.dart';
-import 'package:toolvio/view/add_customer.dart';
-import 'package:toolvio/view/add_task.dart';
-import 'package:toolvio/view/create_invoice_selects_tasks.dart';
-import 'package:toolvio/view/list_customer.dart';
-import 'package:toolvio/view/list_tasks.dart';
-import 'package:toolvio/view/login_screen.dart';
-import 'package:toolvio/view/print_invoice_selected_tasks.dart';
-import 'package:toolvio/view/splash_screen.dart';
+import 'package:toolivo/utils/routes/routes_name.dart';
+import 'package:toolivo/view/add_customer.dart';
+import 'package:toolivo/view/add_task.dart';
+import 'package:toolivo/view/create_invoice_selects_tasks.dart';
+import 'package:toolivo/view/customer.dart';
+import 'package:toolivo/view/list_customer.dart';
+import 'package:toolivo/view/list_tasks.dart';
+import 'package:toolivo/view/login_screen.dart';
+import 'package:toolivo/view/print_invoice_selected_tasks.dart';
+import 'package:toolivo/view/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:toolvio/view/home_screen.dart';
+import 'package:toolivo/view/home_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -34,6 +35,12 @@ class Routes {
       case RoutesName.customerlist:
         return MaterialPageRoute(
             builder: (BuildContext context) => const CustomerList());
+
+      case RoutesName.customer:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => const Customer(),
+          settings: settings,
+        );
 
       case RoutesName.createInvoice:
         return MaterialPageRoute(

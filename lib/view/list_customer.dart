@@ -1,6 +1,7 @@
-import 'package:toolvio/models/customer_data.dart';
-import 'package:toolvio/utils/routes/routes_name.dart';
-import 'package:toolvio/view_model/customer_view_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:toolivo/models/customer_data.dart';
+import 'package:toolivo/utils/routes/routes_name.dart';
+import 'package:toolivo/view_model/customer_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,9 @@ class _CustomerListState extends State<CustomerList> {
     double heightScreen = MediaQuery.of(context).size.height;
     CustomerViewModel customerViewModel =
         Provider.of<CustomerViewModel>(context);
+    if (kDebugMode) {
+      print(customerViewModel.customers.first.docId);
+    }
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFB2B8BA),
@@ -193,11 +197,41 @@ class _CustomerListState extends State<CustomerList> {
               _customTileExpanded = expanded;
             });
           },
-          trailing: _customTileExpanded
-              ? const Image(
-                  image: AssetImage("assets/icons/right_arrow_icon.png"))
-              : const Image(
-                  image: AssetImage("assets/icons/arrow_down_icon.png")),
+          trailing: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _customTileExpanded
+                  ? const Image(
+                      image: AssetImage("assets/icons/right_arrow_icon.png"),
+                      width: 15,
+                      height: 15,
+                    )
+                  : const Image(
+                      image: AssetImage("assets/icons/arrow_down_icon.png"),
+                      width: 15,
+                      height: 15,
+                    ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.customer,
+                    arguments: data[index],
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Image(
+                    image: AssetImage("assets/icons/edit.png"),
+                    width: 20,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
           children: <Widget>[
             Container(
               width: double.infinity,
