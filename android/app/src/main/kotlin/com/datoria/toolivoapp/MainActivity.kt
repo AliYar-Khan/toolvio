@@ -1,4 +1,4 @@
-package com.datoria.toolvioapp
+package com.datoria.toolivoapp
 
 import io.flutter.embedding.android.FlutterActivity
 
