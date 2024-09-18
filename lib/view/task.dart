@@ -40,8 +40,6 @@ class _TaskState extends State<Task> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final arguments = ModalRoute.of(context)?.settings.arguments as TaskData;
       if (kDebugMode) {

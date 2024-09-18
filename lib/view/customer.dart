@@ -25,8 +25,6 @@ class _CustomerState extends State<Customer> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final arguments =
           ModalRoute.of(context)?.settings.arguments as CustomerData;
