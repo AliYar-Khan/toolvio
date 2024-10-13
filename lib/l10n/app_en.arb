@@ -54,5 +54,6 @@
   "sendByEmail": "Send by Email",
   "quantity": "quanity",
   "monthly": "monthly",
-  "weekly": "weekly"
+  "weekly": "weekly",
+  "loginError": "username/password invalid"
 }

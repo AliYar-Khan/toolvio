@@ -54,5 +54,6 @@
   "sendByEmail": "per Email versendet",
   "quantity": "Menge",
   "monthly": "monatlich",
-  "weekly": "wöchentlich"
+  "weekly": "wöchentlich",
+  "loginError": "Benutzername/Kennwort ungültig"
 }

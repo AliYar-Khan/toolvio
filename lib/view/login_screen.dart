@@ -128,6 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       Utils.toastMessage(
                           AppLocalizations.of(context)!.loggedInSuccessfully);
                       Navigator.of(context).popAndPushNamed(RoutesName.home);
+                    } else {
+                      if (loginViewModel.credsInvalid) {
+                        Utils.toastMessage(
+                            AppLocalizations.of(context)!.loginError);
+                        loginViewModel.resetInvalidCredsError();
+                      }
                     }
                   });
                 },

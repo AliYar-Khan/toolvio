@@ -12,6 +12,7 @@ class LoginViewModel extends ChangeNotifier {
   bool isPasswordVisible = true;
 
   bool loggingIn = false;
+  bool credsInvalid = false;
 
   late Account account;
   Session? session;
@@ -73,12 +74,27 @@ class LoginViewModel extends ChangeNotifier {
       } on AppwriteException catch (e) {
         if (kDebugMode) {
           print("login exception ---> ${e.message}");
+          print('error ===> ${e.message?.split(' ')[0]}');
+          print('input ===> ${e.message?.split(' ')[1]}');
+        }
+        String? error = e.message?.split(' ')[0];
+        String? input = e.message?.split(' ')[1];
+
+        if (error == 'Invalid' &&
+            (input == '`password`' || input == 'credentials.')) {
+          credsInvalid = true;
+          //
         }
         loggingIn = false;
         notifyListeners();
         return false;
       }
     }
+  }
+
+  void resetInvalidCredsError() {
+    credsInvalid = !credsInvalid;
+    notifyListeners();
   }
 
   Future<bool> checkSession() async {
