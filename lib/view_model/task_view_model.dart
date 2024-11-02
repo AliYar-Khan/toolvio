@@ -46,12 +46,12 @@ class TaskViewModel extends ChangeNotifier {
       print(pickedTime!.minute);
     }
     if (pickedTime != null) {
-      int hour = pickedTime!.hour % 12;
+      int hour = pickedTime!.hour;
       String minutes = pickedTime!.minute < 10
           ? '0${pickedTime!.minute}'
           : '${pickedTime!.minute}';
-      String amPM = pickedTime!.hour < 12 ? 'am' : 'pm';
-      startTime = '$hour:$minutes $amPM';
+      // String amPM = pickedTime!.hour < 12 ? 'am' : 'pm';
+      startTime = '$hour:$minutes'; //$amPM
       notifyListeners();
     }
   }
@@ -72,12 +72,12 @@ class TaskViewModel extends ChangeNotifier {
       print(pickedTime!.minute);
     }
     if (pickedTime != null) {
-      int hour = pickedTime!.hour % 12;
+      int hour = pickedTime!.hour;
       String minutes = pickedTime!.minute < 10
           ? '0${pickedTime!.minute}'
           : '${pickedTime!.minute}';
-      String amPM = pickedTime!.hour < 12 ? 'am' : 'pm';
-      endTime = '$hour:$minutes $amPM';
+      // String amPM = pickedTime!.hour < 12 ? 'am' : 'pm';
+      endTime = '$hour:$minutes'; // $amPM
       notifyListeners();
       getDuration();
     }
@@ -87,14 +87,8 @@ class TaskViewModel extends ChangeNotifier {
     if (startTime == '' || endTime == '') {
       return;
     } else {
-      final startTimeParts = startTime.split(" ");
-      final endTimeParts = endTime.split(" ");
-
-      final startTimeAMPM = startTimeParts[1].toLowerCase();
-      final endTimeAMPM = endTimeParts[1].toLowerCase();
-
-      final startTimeNumbers = startTimeParts[0].split(":");
-      final endTimeNumbers = endTimeParts[0].split(":");
+      final startTimeNumbers = startTime.split(":");
+      final endTimeNumbers = endTime.split(":");
 
       // Convert string parts into integers
       final startHour = int.parse(startTimeNumbers[0]);
@@ -103,15 +97,11 @@ class TaskViewModel extends ChangeNotifier {
       final endMinute = int.parse(endTimeNumbers[1]);
 
       // Adjust hours for AM/PM
-      final adjustedStartHour =
-          startTimeAMPM == "pm" ? startHour + 12 : startHour;
-      final adjustedEndHour = endTimeAMPM == "pm" ? endHour + 12 : endHour;
-
       // Create DateTime objects for start and end times
       final startDate = DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day, adjustedStartHour, startMinute);
+          DateTime.now().day, startHour, startMinute);
       final endDate = DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day, adjustedEndHour, endMinute);
+          DateTime.now().day, endHour, endMinute);
 
       // Calculate duration
       final durationTime = endDate.difference(startDate);

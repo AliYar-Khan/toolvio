@@ -290,26 +290,25 @@ class _AddTaskState extends State<AddTask> {
                 color: Color(0xFFB2B8BA),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 15, bottom: 5, left: 35, right: 35),
+                padding: EdgeInsets.only(
+                    top: 15,
+                    bottom: 5,
+                    left: widthScreen * 0.02,
+                    right: widthScreen * 0.02),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!
-                              .addNewTask, // "Add New Task",
-                          style: GoogleFonts.spaceGrotesk(
-                            textStyle: const TextStyle(
-                              color: Color(0xFF000000),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .addNewTask, // "Add New Task",
+                      style: GoogleFonts.spaceGrotesk(
+                        textStyle: const TextStyle(
+                          color: Color(0xFF000000),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
                         ),
-                      ],
+                      ),
                     ),
                     Image.asset(
                       'assets/icons/sidebar_icon.png',
