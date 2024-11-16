@@ -252,7 +252,7 @@ class InvoicingViewModel extends ChangeNotifier {
     if (!dartio.Directory(appDocDir!.path).existsSync()) {
       dartio.Directory.fromUri(appDocDir.uri);
     }
-    final targetPath = appDocDir!.path;
+    final targetPath = appDocDir.path;
     final targetFileName = "invoice_$invoiceNumber";
     if (kDebugMode) {
       print("html --> $htmlContent");
