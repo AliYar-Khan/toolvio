@@ -145,6 +145,7 @@ class _CreateInvoiceSelectTasksState extends State<CreateInvoiceSelectTasks> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Checkbox(
@@ -183,16 +184,6 @@ class _CreateInvoiceSelectTasksState extends State<CreateInvoiceSelectTasks> {
                     ),
                   ),
                 ],
-              ),
-              Text(
-                viewModel.data[index].location,
-                style: GoogleFonts.spaceGrotesk(
-                  textStyle: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
               ),
             ],
           ),
@@ -246,12 +237,36 @@ class _CreateInvoiceSelectTasksState extends State<CreateInvoiceSelectTasks> {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
                           viewModel.data[index].customerName,
                           style: GoogleFonts.spaceGrotesk(
                             textStyle: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
+                              color: Color(0xFF000000),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          viewModel.data[index].location.length <= 6
+                              ? viewModel.data[index].location
+                              : "${viewModel.data[index].location.substring(0, 6)}...",
+                          style: GoogleFonts.spaceGrotesk(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                               color: Color(0xFF000000),
                             ),
                           ),

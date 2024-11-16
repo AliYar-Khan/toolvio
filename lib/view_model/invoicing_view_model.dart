@@ -248,11 +248,15 @@ class InvoicingViewModel extends ChangeNotifier {
   }
 
   Future<void> generateDocument(String htmlContent, int invoiceNumber) async {
-    dartio.Directory appDocDir = await getApplicationDocumentsDirectory();
-    final targetPath = appDocDir.path;
+    dartio.Directory? appDocDir = await getDownloadsDirectory();
+    if (!dartio.Directory(appDocDir!.path).existsSync()) {
+      dartio.Directory.fromUri(appDocDir.uri);
+    }
+    final targetPath = appDocDir!.path;
     final targetFileName = "invoice_$invoiceNumber";
     if (kDebugMode) {
       print("html --> $htmlContent");
+      print("target file ---> $targetFileName");
     }
     var headers = {
       'Content-Type': 'application/json',
