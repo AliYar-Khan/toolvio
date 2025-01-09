@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io' as dartio;
 import 'dart:math';
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart';
 import 'package:toolivo/models/invoices.dart';
 import 'package:toolivo/models/chart_data.dart';
@@ -118,6 +120,9 @@ class InvoicingViewModel extends ChangeNotifier {
         await Provider.of<CustomerViewModel>(context, listen: false)
             .getCustomer(context, data[index].customerId);
 
+    if (kDebugMode) {
+      print("invoiced tasks  ----> ${data[index].toJson()}");
+    }
     invoicedTasks.add(TaskData(
       id: data[index].id,
       title: data[index].title,
@@ -258,43 +263,49 @@ class InvoicingViewModel extends ChangeNotifier {
       print("html --> $htmlContent");
       print("target file ---> $targetFileName");
     }
-    var headers = {
-      'Content-Type': 'application/json',
-      'auth': convert.jsonEncode({
-        'username': 'api',
-        'password': AppConstants.pdfshiftapikey,
-      })
-    };
-    var request = http.Request(
-        'POST', Uri.parse('https://api.pdfshift.io/v3/convert/pdf'));
-    request.body = convert.jsonEncode({"source": htmlContent});
-    // Await the http get response, then decode the json-formatted response.
-    request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
-    if (response.statusCode == 200) {
-      try {
-        var file = await response.stream.toBytes();
-        dartio.File filePDF =
-            await dartio.File('$targetPath/$targetFileName.pdf').create();
-        filePDF.writeAsBytesSync(file);
-        if (kDebugMode) {
-          print('$targetPath/$targetFileName.pdf');
-        }
-      } on dartio.FileSystemException catch (e) {
-        if (kDebugMode) {
-          print("exception -> ${e.message}");
-        }
-      } on FormatException catch (e) {
-        debugPrint("exception $e");
-      }
-    } else {
-      if (kDebugMode) {
-        print(
-            "Request failed with status code ${response.statusCode}: ${response.reasonPhrase}");
-      }
-      Utils.toastMessage(response.reasonPhrase!);
-    }
+    var body = {
+      'htmlContent': htmlContent,
+    };
+    var data = await repository.exectuteFunction(
+        AppConstants.pdfFunctionID, body, ExecutionMethod.pOST);
+    // var headers = {
+    //   'Content-Type': 'application/json',
+    //   'auth': convert.jsonEncode({
+    //     'username': 'api',
+    //     'password': AppConstants.pdfshiftapikey,
+    //   })
+    // };
+    // var request = http.Request(
+    //     'POST', Uri.parse('https://api.pdfshift.io/v3/convert/pdf'));
+    // request.body = convert.jsonEncode({"source": htmlContent});
+    // // Await the http get response, then decode the json-formatted response.
+    // request.headers.addAll(headers);
+
+    // http.StreamedResponse response = await request.send();
+    // if (response.statusCode == 200) {
+    //   try {
+    //     var file = await response.stream.toBytes();
+    //     dartio.File filePDF =
+    //         await dartio.File('$targetPath/$targetFileName.pdf').create();
+    //     filePDF.writeAsBytesSync(file);
+    //     if (kDebugMode) {
+    //       print('$targetPath/$targetFileName.pdf');
+    //     }
+    //   } on dartio.FileSystemException catch (e) {
+    //     if (kDebugMode) {
+    //       print("exception -> ${e.message}");
+    //     }
+    //   } on FormatException catch (e) {
+    //     debugPrint("exception $e");
+    //   }
+    // } else {
+    //   if (kDebugMode) {
+    //     print(
+    //         "Request failed with status code ${response.statusCode}: ${response.reasonPhrase}");
+    //   }
+    //   Utils.toastMessage(response.reasonPhrase!);
+    // }
   }
 
   Future<void> getAllInvoices(BuildContext context) async {

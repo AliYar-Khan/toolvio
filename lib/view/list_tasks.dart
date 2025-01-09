@@ -169,18 +169,18 @@ class _TaskListState extends State<TaskList> {
                   ),
                 ),
               ),
-              Text(
-                viewModel.tasks[index].location.length > 15
-                    ? '${viewModel.tasks[index].location.substring(0, 10)}...'
-                    : viewModel.tasks[index].location,
-                style: GoogleFonts.spaceGrotesk(
-                  textStyle: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              // Text(
+              //   viewModel.tasks[index].location.length > 15
+              //       ? '${viewModel.tasks[index].location.substring(0, 10)}...'
+              //       : viewModel.tasks[index].location,
+              //   style: GoogleFonts.spaceGrotesk(
+              //     textStyle: const TextStyle(
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.bold,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           // subtitle: const Text('Custom expansion arrow icon'),
@@ -263,6 +263,18 @@ class _TaskListState extends State<TaskList> {
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
                           viewModel.tasks[index].customerName,
                           style: GoogleFonts.spaceGrotesk(
@@ -273,11 +285,19 @@ class _TaskListState extends State<TaskList> {
                             ),
                           ),
                         ),
+                        Text(
+                          viewModel.tasks[index].location,
+                          style: GoogleFonts.spaceGrotesk(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF000000),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  // Row(
-                  //   children: [
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 10,
@@ -295,8 +315,6 @@ class _TaskListState extends State<TaskList> {
                       ),
                     ),
                   ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

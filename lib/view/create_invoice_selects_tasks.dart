@@ -260,9 +260,7 @@ class _CreateInvoiceSelectTasksState extends State<CreateInvoiceSelectTasks> {
                           ),
                         ),
                         Text(
-                          viewModel.data[index].location.length <= 6
-                              ? viewModel.data[index].location
-                              : "${viewModel.data[index].location.substring(0, 6)}...",
+                          viewModel.data[index].location,
                           style: GoogleFonts.spaceGrotesk(
                             textStyle: const TextStyle(
                               fontSize: 15,

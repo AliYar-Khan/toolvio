@@ -1,7 +1,9 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart';
 import 'package:toolivo/res/constants.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
 class AppwriteRepository {
   static AppwriteRepository? _instance;
@@ -9,6 +11,7 @@ class AppwriteRepository {
   late Account account;
   late Databases database;
   late Storage storage;
+  late Functions functions;
   // Private constructor to prevent instantiation from outside
   AppwriteRepository._() {
     client = Client();
@@ -19,6 +22,7 @@ class AppwriteRepository {
     account = Account(client);
     database = Databases(client);
     storage = Storage(client);
+    functions = Functions(client);
   }
 
   // Singleton instance getter
@@ -64,5 +68,24 @@ class AppwriteRepository {
     Uint8List result =
         await storage.getFileDownload(bucketId: bucketId, fileId: fileId);
     return String.fromCharCodes(result);
+  }
+
+  Future<dynamic> exectuteFunction(
+      String functionID, Map<String, dynamic> body, ExecutionMethod method) {
+    Future<Execution> result = functions.createExecution(
+      functionId: functionID,
+      body: jsonEncode(body), // optional
+      xasync: false, // optional
+      path: '/', // optional
+      method: method, // optional
+      headers: {}, // optional
+    );
+    return result.then((data) {
+      if (kDebugMode) {
+        print("data ===> ${data.responseBody}");
+        print("data type ===> ${data.responseBody.runtimeType}");
+      }
+      return data.responseBody;
+    });
   }
 }

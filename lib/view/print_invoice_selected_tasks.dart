@@ -32,6 +32,8 @@ class _PrintInvoiceSelectedTasksState extends State<PrintInvoiceSelectedTasks> {
     // double heightScreen = MediaQuery.of(context).size.height;
     InvoicingViewModel invoicingViewModel =
         Provider.of<InvoicingViewModel>(context);
+    print(
+        "invoiced tasks ---> ${invoicingViewModel.invoicedTasks.first.toJson()}");
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFEEFAFF),
@@ -537,12 +539,12 @@ class _PrintInvoiceSelectedTasksState extends State<PrintInvoiceSelectedTasks> {
                 shrinkWrap: true,
                 itemCount:
                     invoicingViewModel.invoicedTasks[index].material.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (context, indexMaterial) {
                   return MaterialListItem(
                     name: invoicingViewModel
-                        .invoicedTasks[index].material[index].name,
+                        .invoicedTasks[index].material[indexMaterial].name,
                     quantiy: invoicingViewModel
-                        .invoicedTasks[index].material[index].quantity,
+                        .invoicedTasks[index].material[indexMaterial].quantity,
                     showWhiteLine: index !=
                         invoicingViewModel
                                 .invoicedTasks[index].material.length -
